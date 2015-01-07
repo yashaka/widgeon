@@ -1,7 +1,7 @@
 require "widgeon/version"
 
-require 'lib/widgeon/page_object'
-require 'lib/widgeon/widget'
+require 'widgeon/page_object'
+require 'widgeon/widget'
 
 module Widgeon
 end
