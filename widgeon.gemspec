@@ -18,9 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  s.add_dependency 'mime-types', '= 1.25'
-  s.add_dependency 'capybara', '= 2.0.3'
-  s.add_dependency 'selenium-webdriver'
+  spec.add_dependency 'mime-types', '= 1.25'
+  spec.add_dependency 'capybara', '= 2.0.3'
+  spec.add_dependency 'selenium-webdriver'
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
 end
