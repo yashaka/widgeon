@@ -1,4 +1,4 @@
-require 'lib/deps/tooth/page_object'
+require 'deps/tooth/page_object'
 
 module Widgeon
   module PageObject

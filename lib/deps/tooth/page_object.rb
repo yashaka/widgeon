@@ -22,7 +22,7 @@
 #   * required lib/widgeon/patches/ruby_patch in order to enable Object#tap
 #   * added 'TODO' comments
 
-require 'lib/widgeon/patches/ruby_patch'
+require 'widgeon/patches/ruby_patch'
 
 module Tooth
   module PageObject

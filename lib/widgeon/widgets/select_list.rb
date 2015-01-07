@@ -1,4 +1,4 @@
-require 'lib/widgeon/widget.rb'
+require 'widgeon/widget.rb'
 
 module Widgeon
   module Widgets

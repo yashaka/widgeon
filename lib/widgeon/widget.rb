@@ -1,4 +1,4 @@
-require 'lib/widgeon/page_object'
+require 'widgeon/page_object'
 
 module Widgeon
   module Widget
