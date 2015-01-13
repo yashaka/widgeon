@@ -15,7 +15,6 @@
 
    This product includes software developed by Iakiv Kramarenko (yashaka@gmail.com)
 
-   This product bundles and modifies tooth 0.3.0 page_object.rb sources, which are available under a
-   "Apache License Version 2.0" license at https://github.com/kliuchnikau/tooth/
-   and developed by Aliaksei Kliuchnikau (aliaksei.kliuchnikau@gmail.com).
+   This product bundles and modifies tooth 0.3.0 page_object.rb
+   developed by Aliaksei Kliuchnikau (aliaksei.kliuchnikau@gmail.com)
    For details, see lib/deps/tooth/page_object.rb.
