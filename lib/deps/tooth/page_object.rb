@@ -19,16 +19,19 @@
 #
 #   This file was modified by Iakiv Kramarenko (yashaka@gmail.com), as follows:
 #   * changed all lambdas to ruby 1.8.7 style
-#   * required lib/widgeon/patches/ruby_patch in order to enable Object#tap
+#   * required widgeon/patches/ruby_patch in order to enable Object#tap
+#   * required widgeon/page_object in order to extend it at Tooth::PageObject#within
+#   *   extended Widgeon::PageObject instead of Tooth::PageObject in #within
 #   * added 'TODO' comments
 
 require 'widgeon/patches/ruby_patch'
+require 'widgeon/page_object'
 
 module Tooth
   module PageObject
     def within scope_locator, &block
       within_scope_klass = Class.new
-      within_scope_klass.extend PageObject # TODO: think on: how to extend Widgeon::PageObject not tooth'... does it even matter which one?
+      within_scope_klass.extend Widgeon::PageObject #TODO: is there a better way to update the #within?
       within_scope_klass.instance_variable_set :@page_element, page_element
       within_scope_klass.element_with_finders = lambda { element_with_finders.find(scope_locator) }
       within_scope_klass.class_eval &block

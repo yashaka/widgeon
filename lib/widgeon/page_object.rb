@@ -32,7 +32,6 @@ module Widgeon
     def initialize *args
       @owner = self
       init
-      puts ">>> PageObject initialized: #{self.class}" # TODO: remove once debugged
     end
 
     alias_method :e, :element
