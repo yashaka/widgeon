@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'mime-types', '= 1.25'
   spec.add_dependency 'capybara', '= 2.0.3'
-  spec.add_dependency 'selenium-webdriver'
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
 end
