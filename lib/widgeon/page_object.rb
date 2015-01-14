@@ -76,10 +76,23 @@ module Widgeon
     alias_method :w, :widget
     alias_method :ww, :widgets
 
-    def fill_with opts={}
+    # @param opts examples:
+    #   - order does not matter:
+    #     {:field1 => value1, :field2 => value2, :field3 => value3}
+    #   - order does matter:
+    #     [{:field1_should_be_set_first => value1}, {:field2 => value2, :field3 => value3}]
+    def fill_with opts
+      opts.is_a?(Hash) ? fill_with_hash(opts) : fill_with_array_of_hashes(opts)
+    end
+
+    def fill_with_hash opts={}
       opts.each do |field, value|
         (self.send field).set value unless value.nil? # TODO: refactor to `if value`
       end
+    end
+
+    def fill_with_array_of_hashes opts=[]
+      opts.each { |hash| fill_with_hash hash }
     end
 
   end
