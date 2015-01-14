@@ -1,6 +1,11 @@
 # Widgeon
 
-TODO: Write a gem description
+Widgeon provides implementation of PageObject pattern for Capybara 2.0.3 to be compatible with Ruby 1.8.7.
+Later it will also support latest versions of Capybara but the compatibility with older Ruby will be remained.
+
+Widgeon is based on the tooth gem (https://github.com/kliuchnikau/tooth/)
+and extends its abilities in context of constructing PageObjects based on self-loaded (optionally) widgets ('components' in tooth)
+and their collections. There is also a common implementation of PageFactory for widgeon PageObjects.
 
 ## Installation
 
@@ -19,6 +24,13 @@ Or install it yourself as:
 ## Usage
 
 TODO: Write usage instructions here
+
+## TODO list
+
+* add specs
+* add USAGE
+* enhance DSL
+* extend for latest versions of ruby and Capybara but leave compatibility with older versions.
 
 ## Contributing
 
