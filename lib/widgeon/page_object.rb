@@ -52,7 +52,7 @@ module Widgeon
 
     def initialize *args
       @owner = self
-      init
+      init if respond_to? :init
     end
 
     alias_method :e, :element
