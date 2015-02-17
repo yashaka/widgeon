@@ -27,17 +27,18 @@ module Widgeon
 
     def initialize owner, element_with_finders
       super()
-      # TODO: think on: how about `widget.doto [:owner=, self], [:element_with_finders=, widget_element], :open` ?
+      # todo: think on: how about `widget.doto [:owner=, self], [:element_with_finders=, widget_element], :open` ?
       #   hm... there is an `if` in the end... so here it will not work... but in general... why not?
-      self.owner = owner
+      self.owner = owner # this owner field was remembered here in order to be able to implement `#open` method in widget
+                         # though, this was refactored because of 'bad tight coupling'
+                         # and now todo: this may be considered for removal
+                         # Hence, the Widget class itself will be just an "alias" for PageObject, with out any additional
+                         # abilities... Though such abilities may appear in the future:)
       self.element_with_finders = element_with_finders
-      # TODO: think on:
-      #   currently #open is responsible for full load,
-      #   i.e. it should define by itself whether page is itself loaded or not
-      #   will it be better to move this login into separate method like `#loaded?`
-      #   and so change next line to something like
-      #     `widget.open unless widget.loaded or not widget.respond_to? :open`
+
       self.open if self.respond_to? :open
+
+      # loadable_lambda.call if loadable_lambda
     end
   end
 end

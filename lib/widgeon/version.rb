@@ -20,5 +20,5 @@
 #   For details, see lib/deps/tooth/page_object.rb.
 
 module Widgeon
-  VERSION = "1.0.12"
+  VERSION = "1.1.0"
 end

@@ -60,7 +60,17 @@ module Widgeon
 
     def widget name, widget_class, locator, options={}
       page_element[name] = lambda { |*args|
-        widget_element = find(locator_string(locator, args), options)
+        open_lambda = (options.delete(:open) or lambda {})
+        opened_lambda = (options.delete(:opened?) or lambda { |it| it.visible? })
+
+        widget_element = find locator_string(locator, args), options
+        # `or widget_class.instance_methods.include?(:open)` is added below to count other option to
+        # implement 'loadable widgets' via defining :open method on widget itself
+        # it is considered for removal in one of next versions.
+        unless opened_lambda.call(widget_element) or widget_class.instance_methods.include?(:open)
+          open_lambda.call
+          widget_element = wait_for { find locator_string(locator, args), options }
+        end
         widget_class.new self, widget_element
       }
     end
@@ -81,13 +91,14 @@ module Widgeon
     #     {:field1 => value1, :field2 => value2, :field3 => value3}
     #   - order does matter:
     #     [{:field1_should_be_set_first => value1}, {:field2 => value2, :field3 => value3}]
+    # todo: add validation for opts
     def fill_with opts
       opts.is_a?(Hash) ? fill_with_hash(opts) : fill_with_array_of_hashes(opts)
     end
 
     def fill_with_hash opts={}
       opts.each do |field, value|
-        (self.send field).set value unless value.nil? # TODO: refactor to `if value`
+        (self.send field).set value unless value.nil?
       end
     end
 

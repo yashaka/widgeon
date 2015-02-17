@@ -27,10 +27,16 @@ TODO: Write usage instructions here
 
 ## TODO list
 
-* add specs
-* add USAGE
-* enhance DSL
 * extend for latest versions of ruby and Capybara but leave compatibility with older versions.
+* add USAGE & Docs
+* refactor javascript code for the test dummy app
+* add spec steps for testing a list of items of different type
+* enhance DSL (create 'locators in hash-map' DSL; compare to non-DSL, raw OOP solution)
+* add examples for locators as lambdas
+* consider removing 'loading widgets via Widget#open' in one of next major versions
+* resolve all 'todos'
+* refactor comments to be of rdoc style
+* add 'changes' file
 
 ## Contributing
 

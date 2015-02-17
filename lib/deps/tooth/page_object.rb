@@ -22,10 +22,16 @@
 #   * required widgeon/patches/ruby_patch in order to enable Object#tap
 #   * required widgeon/page_object in order to extend it at Tooth::PageObject#within
 #   *   extended Widgeon::PageObject instead of Tooth::PageObject in #within
+#   * required widgeon/helpers/wait_until to use it as:
+#   *   wrapped `element_with_finders.find(scope_locator)` into the wait_until
+#       Capybara automatically waits only in the chain of `find().doSomething()`, where doSomething is `#click`, etc...
+#       It does not automatically waits for visibility in the chain of `find().find()...`. The latter is what needed
+#       in context of PageObject#within because of adding one more `find()` of 'within' context to the chain
 #   * added 'TODO' comments
 
 require 'widgeon/patches/ruby_patch'
 require 'widgeon/page_object'
+require 'widgeon/helpers/wait'
 
 module Tooth
   module PageObject
@@ -33,7 +39,16 @@ module Tooth
       within_scope_klass = Class.new
       within_scope_klass.extend Widgeon::PageObject #TODO: is there a better way to update the #within?
       within_scope_klass.instance_variable_set :@page_element, page_element
-      within_scope_klass.element_with_finders = lambda { element_with_finders.find(scope_locator) }
+      # todo: if possible refactor the following code to something like:
+      #         `within_scope_klass.element_with_finders = element_with_finders.find(scope_locator).should be_visible?`
+      within_scope_klass.element_with_finders = lambda do
+        found_element = nil
+        wait_until {
+          found_element = element_with_finders.find(scope_locator)
+          found_element.visible?
+        }
+        found_element
+      end
       within_scope_klass.class_eval &block
     end
 
