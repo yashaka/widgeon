@@ -39,15 +39,11 @@ module Tooth
       within_scope_klass = Class.new
       within_scope_klass.extend Widgeon::PageObject #TODO: is there a better way to update the #within?
       within_scope_klass.instance_variable_set :@page_element, page_element
-      # todo: if possible refactor the following code to something like:
-      #         `within_scope_klass.element_with_finders = element_with_finders.find(scope_locator).should be_visible?`
+      # todo: think on refactoring the following code to something like:
+      #   `within_scope_klass.element_with_finders = lambda{ element_with_finders.find(scope_locator).should be_visible? }`
+      # i.e. use rspec matchers instead, and be more of 'selenide' style (see selenide.org)
       within_scope_klass.element_with_finders = lambda do
-        found_element = nil
-        wait_until {
-          found_element = element_with_finders.find(scope_locator)
-          found_element.visible?
-        }
-        found_element
+        wait_for { element_with_finders.find(scope_locator) }
       end
       within_scope_klass.class_eval &block
     end
