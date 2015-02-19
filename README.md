@@ -55,7 +55,7 @@ class MainPage
       e :other_element, '#other_element'
     end
         
-    # Assuming SignInForm exist only inside side panel...
+    # Assuming SignInForm exists only inside side panel...
     class SignInForm                           
       include Widget
               

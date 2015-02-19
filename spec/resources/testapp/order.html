@@ -28,31 +28,31 @@ $(document).ready(function(){
 
     $('#add_item').click(function(){
         var newItemNumber = $('[id^="item"]').size() + 1;
-        var newItem = $('#template_item').clone()
+        var $newItem = $('#template_item').clone()
             .attr('id','item_' + newItemNumber);
 
-        newItem.find('#show_advanced_options').click(function(){
-            zis = this;
+        $newItem.find('#show_advanced_options').click(function(){
+            var $this = $(this);
             imitateLoading(function(){
-                $(zis).next().toggle($(zis).prop('checked'));
+                $this.next().toggle($this.prop('checked'));
             });
         });
 
-        newItem.find('#show_advanced_options_selector').click(function(){
-            zis = this;
+        $newItem.find('#show_advanced_options_selector').click(function(){
+            var $this = $(this);
             imitateLoading(function(){
-                $(zis).next().toggle($(zis).prop('checked'));
+                $this.next().toggle($this.prop('checked'));
             });
         });
 
-        var advancedOptionsSelector = newItem.find('#advanced_options_selector');
-        newItem.find('#add_options_filter').click(function(){
-            var newFilterNumber =
-                advancedOptionsSelector.find('[id^="options_filter"]').size() + 1;
-            var newOptionsFilter = $('#template_options_filter').clone()
-                .attr('id', 'options_filter_' + newItemNumber + '_' + newFilterNumber);
+        var $advancedOptionsSelector = $newItem.find('#advanced_options_selector');
+        $newItem.find('#add_options_filter').click(function(){
+            var $newFilterNumber =
+                $advancedOptionsSelector.find('[id^="options_filter"]').size() + 1;
+            var $newOptionsFilter = $('#template_options_filter').clone()
+                .attr('id', 'options_filter_' + newItemNumber + '_' + $newFilterNumber);
 
-            newOptionsFilter.find('#options_scope_type').change(function(){
+            $newOptionsFilter.find('#options_scope_type').change(function(){
                 var selectedType = $(this).val();
                 $(this).parent().find('#options_scope option').each(function(){
                     var currentText = $(this).text();
@@ -60,33 +60,33 @@ $(document).ready(function(){
                 });
             });
 
-            $(this).before(newOptionsFilter);
+            $(this).before($newOptionsFilter);
             imitateLoading(function (){
-                newOptionsFilter.show()
+                $newOptionsFilter.show()
             });
 
         });
 
-        var optionsList = newItem.find('#options_list');
-        var optionsListPlaceholder = newItem.find('#options_list_placeholder');
-        newItem.find('#apply_filtered_options').click(function(){
-            optionsList.hide();
-            optionsListPlaceholder.show();
+        var $optionsList = $newItem.find('#options_list');
+        var $optionsListPlaceholder = $newItem.find('#options_list_placeholder');
+        $newItem.find('#apply_filtered_options').click(function(){
+            $optionsList.hide();
+            $optionsListPlaceholder.show();
             imitateLoading(function(){
-                newItem.find('[id^="options_filter"]').each(function(){
+                $newItem.find('[id^="options_filter"]').each(function(){
                     var scope = $(this).find('#options_scope').val();
-                    optionsList.append($('<li>' + scope + '</li>'));
+                    $optionsList.append($('<li>' + scope + '</li>'));
                 });
-                optionsListPlaceholder.hide(3000, function(){
-                    optionsList.show();
+                $optionsListPlaceholder.hide(3000, function(){
+                    $optionsList.show();
                 });
             });
 
         });
 
-        $(this).before(newItem);
+        $(this).before($newItem);
         imitateLoading(function(){
-            newItem.show();
+            $newItem.show();
         });
     });
 
