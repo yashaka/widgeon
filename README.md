@@ -1,7 +1,7 @@
 # Widgeon
 
 Widgeon provides implementation of PageObject pattern for Capybara 2.0.3 to be compatible with Ruby 1.8.7.
-Later it will support latest versions of Capybara and the compatibility with older Ruby will be left in the gem's alternative correspondent branch.
+Later it will support latest versions of Capybara and Ruby and the compatibility with older versions will be left in the correspondent branch of the gem.
 
 Widgeon is based on the tooth gem (https://github.com/kliuchnikau/tooth/) and extends its abilities in context of constructing PageObjects based on self-opened (optionally) widgets ('components' in tooth) and their collections. Self-opened widgets was inspired by Selenium's LoadableComponent pattern, but applied to complex html elements (or components/widgets) and implemented in the less tightly coupled way.  There is also a common implementation of PageFactory for widgeon PageObjects. In addition you can find a common implementation of "waiting" for AJAX helpers, which are not needed in real life if you use Capybara, but was needed at least in building Widgeon itself.
 
@@ -184,7 +184,7 @@ See **/spec** files for more examples of usage.
 ## TODO list
 
 * move to ruby 2.0 (update docs and comments correspondingly)
-* refactor javascript code for the test dummy app to be more DRY
+* refactor javascript code for the test dummy app: switch to "events delegation" instead of "putting callback directly on elements"
 * add spec steps for testing a list of items of different type
 * add examples for locators as lambdas
 * consider removing 'loading widgets via Widget#open' in one of next major versions by removing the "owner" field 
