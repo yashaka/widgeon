@@ -1,4 +1,4 @@
-# Version 1.1.1
+# Version 1.1.2
 Release date: 2015-02-19
 
 This is the last version of Widgeon that supports ruby 1.8.7. After next version is released, it will be still possible to 
