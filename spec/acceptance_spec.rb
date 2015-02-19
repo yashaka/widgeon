@@ -8,8 +8,8 @@ describe 'Acceptance End to End test' do
 
       order.add_item_with(:name => 'New Test Item', :other_data => 'Some other specific data').tap do |item|
 
-        item.add_advanced_options [[{:type => 'type1'}, {:scope => 'optionscope2fortype1'}],
-                                   [{:type => 'type2'}, {:scope => 'optionscope3fortype2'}]]
+        item.add_advanced_options [[{:option_type => 'type1'}, {:scope => 'optionscope2fortype1'}],
+                                   [{:option_type => 'type2'}, {:scope => 'optionscope3fortype2'}]]
 
         item.advanced_options_section.options.tap do |opts|
           expect(opts.size).to eq 2

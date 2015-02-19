@@ -29,12 +29,12 @@ $(document).ready(function(){
         }
     }
 
-    function imitate_loading(){
+    function imitateLoading(){
         sleep(500);
     };
 
     function show(e){
-        imitate_loading();
+        imitateLoading();
         e.prop('hidden', false);
         return e;
     };
@@ -50,13 +50,13 @@ $(document).ready(function(){
             .attr('id','item_' + new_item_number);
 
         new_item.find('#show_advanced_options').click(function(){
-            imitate_loading();
+            imitateLoading();
             $(this).next().prop('hidden',
                                 !$(this).prop('checked'));
         });
 
         new_item.find('#show_advanced_options_selector').click(function(){
-            imitate_loading();
+            imitateLoading();
             $(this).next().prop('hidden',
                                 !$(this).prop('checked'));
         });

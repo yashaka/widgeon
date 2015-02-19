@@ -71,7 +71,7 @@ module TestApp
           include Widget
 
           def init
-            w :type, SelectList, '#options_scope_type'
+            w :option_type, SelectList, '#options_scope_type'
             w :scope, SelectList, '#options_scope'
           end
 

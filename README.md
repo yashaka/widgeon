@@ -30,7 +30,7 @@ require 'widgeon'
 include Widgeon
     
 class MainPage
-  include PageObject                           # <- Making you class a 'widgeon' PageObject
+  include PageObject                           # <- Making your class a 'widgeon' PageObject
       
   def open
     visit '/main'
