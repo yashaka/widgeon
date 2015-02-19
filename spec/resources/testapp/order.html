@@ -20,83 +20,74 @@ Its design is by intention awkward in order to test the worst case.
 <script>
 $(document).ready(function(){
 
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds){
-                break;
-            }
-        }
+    function imitateLoading(fn){
+        setTimeout(fn, 500)
     }
 
-    function imitateLoading(){
-        sleep(500);
-    };
-
-    function show(e){
-        imitateLoading();
-        e.prop('hidden', false);
-        return e;
-    };
-
-    function hide(e){
-        e.prop('hidden', true);
-        return e;
-    };
+    $('.hidden_by_default').hide()
 
     $('#add_item').click(function(){
-        var new_item_number = $('[id^="item"]').size() + 1;
-        var new_item = $('#template_item').clone()
-            .attr('id','item_' + new_item_number);
+        var newItemNumber = $('[id^="item"]').size() + 1;
+        var newItem = $('#template_item').clone()
+            .attr('id','item_' + newItemNumber);
 
-        new_item.find('#show_advanced_options').click(function(){
-            imitateLoading();
-            $(this).next().prop('hidden',
-                                !$(this).prop('checked'));
+        newItem.find('#show_advanced_options').click(function(){
+            zis = this;
+            imitateLoading(function(){
+                $(zis).next().toggle($(zis).prop('checked'));
+            });
         });
 
-        new_item.find('#show_advanced_options_selector').click(function(){
-            imitateLoading();
-            $(this).next().prop('hidden',
-                                !$(this).prop('checked'));
+        newItem.find('#show_advanced_options_selector').click(function(){
+            zis = this;
+            imitateLoading(function(){
+                $(zis).next().toggle($(zis).prop('checked'));
+            });
         });
 
-        var advanced_options_selector = new_item.find('#advanced_options_selector');
-        new_item.find('#add_options_filter').click(function(){
-            var new_filter_number =
-                advanced_options_selector.find('[id^="options_filter"]').size() + 1;
-            var new_options_filter = $('#template_options_filter').clone()
-                .attr('id', 'options_filter_' + new_item_number + '_' + new_filter_number);
+        var advancedOptionsSelector = newItem.find('#advanced_options_selector');
+        newItem.find('#add_options_filter').click(function(){
+            var newFilterNumber =
+                advancedOptionsSelector.find('[id^="options_filter"]').size() + 1;
+            var newOptionsFilter = $('#template_options_filter').clone()
+                .attr('id', 'options_filter_' + newItemNumber + '_' + newFilterNumber);
 
-            new_options_filter.find('#options_scope_type').change(function(){
-                var selected_type = $(this).val();
+            newOptionsFilter.find('#options_scope_type').change(function(){
+                var selectedType = $(this).val();
                 $(this).parent().find('#options_scope option').each(function(){
-                    var current_text = $(this).text();
-                    $(this).text(current_text.slice(0,-1) + selected_type.slice(-1));
+                    var currentText = $(this).text();
+                    $(this).text(currentText.slice(0,-1) + selectedType.slice(-1));
                 });
             });
 
-            $(this).before(new_options_filter);
-            show(new_options_filter);
+            $(this).before(newOptionsFilter);
+            imitateLoading(function (){
+                newOptionsFilter.show()
+            });
 
         });
 
-        var options_list = new_item.find('#options_list');
-        var options_list_placeholder = new_item.find('#options_list_placeholder');
-        new_item.find('#apply_filtered_options').click(function(){
-            hide(options_list);
-            show(options_list_placeholder);
-            new_item.find('[id^="options_filter"]').each(function(){
-                var scope = $(this).find('#options_scope').val();
-                options_list.append($('<li>' + scope + '</li>'));
+        var optionsList = newItem.find('#options_list');
+        var optionsListPlaceholder = newItem.find('#options_list_placeholder');
+        newItem.find('#apply_filtered_options').click(function(){
+            optionsList.hide();
+            optionsListPlaceholder.show();
+            imitateLoading(function(){
+                newItem.find('[id^="options_filter"]').each(function(){
+                    var scope = $(this).find('#options_scope').val();
+                    optionsList.append($('<li>' + scope + '</li>'));
+                });
+                optionsListPlaceholder.hide(3000, function(){
+                    optionsList.show();
+                });
             });
-            options_list_placeholder.hide(3000, function(){
-                show(options_list);
-            });
+
         });
 
-        $(this).before(new_item);
-        show(new_item);
+        $(this).before(newItem);
+        imitateLoading(function(){
+            newItem.show();
+        });
     });
 
 });
@@ -130,7 +121,7 @@ $(document).ready(function(){
 
         <h2>Items:</h2>
 
-        <article id='template_item' hidden>
+        <article id='template_item' class='hidden_by_default'>
             <div class='main_data'>
                 <label>Name:</label>
                 <input type='text' class='item_name'/>
@@ -140,16 +131,16 @@ $(document).ready(function(){
 
             <label>Advanced Options</label>
             <input type='checkbox' id='show_advanced_options'/>
-            <section id='advanced_options' hidden>
+            <section id='advanced_options' class='hidden_by_default'>
                 <ul id='options_list'>
                 </ul>
-                <p id='options_list_placeholder' hidden>Applying options...</p>
+                <p id='options_list_placeholder' class='hidden_by_default'>Applying options...</p>
             </section>
 
             <label>Advanced Options Selector</label>
             <input type='checkbox' id='show_advanced_options_selector'/>
-            <section id='advanced_options_selector' hidden>
-                <article id='template_options_filter' hidden>
+            <section id='advanced_options_selector' class='hidden_by_default'>
+                <article id='template_options_filter' class='hidden_by_default'>
                     <label>Type:</label>
                     <select id='options_scope_type'>
                         <option value='type1'>type1</option>
