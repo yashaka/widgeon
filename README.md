@@ -30,31 +30,33 @@ require 'widgeon'
 include Widgeon
     
 class MainPage
-  include PageObject                           # <- Making your class a 'widgeon' PageObject
+  include PageObject                           
       
   def open
     visit '/main'
   end
       
-  def init                                     # <- Defining elements of your PageObject inside
-    e :some_element, '#some_element_locator'   # <- - PageObject#e is an alias to PageObject#element helper
+  def init                                     
+    e :some_element, '#some_element_locator'   
     ee :some_list_elements, '#some_list_of_elements'
-    ww :articles, Article, '[id^="article"]'   # <- - 'ww' is an alias for 'widgets'
+    ww :articles, Article, '[id^="article"]'   
     e :open_side_panel, '#open_side_panel'
     w :side_panel, SidePanel, '#side_panel', :open => lambda {   
-      open_side_panel.click                    # <- - side_panel widget will be opened automatically
+      open_side_panel.click                    
     }
   end
-      
-  class  SidePanel                             # <- Assuming side panel exists only on main page, 
-    include Widget                             #    its class defined inside the MainPage class
+  
+  # Assuming side panel exists only on main page its class defined inside the MainPage class
+  class  SidePanel                             
+    include Widget 
         
     def init
       w :sign_in_form, SignInForm, '#sign_in_form'
       e :other_element, '#other_element'
     end
         
-    class SignInForm                           # <- Assuming SignInForm exist only inside side panel...
+    # Assuming SignInForm exist only inside side panel...
+    class SignInForm                           
       include Widget
               
       def init
@@ -71,8 +73,9 @@ class MainPage
   end
 end
     
-class Article                                 # <- Assuming articles may exist on several pages, 
-  include Widget                              #    the class is defined globally
+# Assuming articles may exist on several pages, the class is defined globally
+class Article                                
+  include Widget                            
       
   def init
     e :heading, 'heading'
@@ -86,6 +89,72 @@ end
 require 'widgeon/page_factory'
 include Widgeon::PageFactory
     
+visit_page MainPage do |main|
+  main.side_panel.sign_in_form.do_signin :mail => 'mail@example.com', :password => 'supersecret'
+end
+```
+
+#### Example Explained
+
+Make your class a 'widgeon' Pageobject:
+
+```ruby
+class MainPage
+  include PageObject  
+```
+
+Define elements inside the `init` method:
+
+```ruby
+  def init                                     
+    element :some_element, '#some_element_locator'   
+    #...
+  end
+```
+
+Define element with `'#some_element_locator'` and accessible from the page object by `some_element` name:
+
+```ruby
+    element :some_element, '#some_element_locator' 
+```
+
+Define a collection of elements:
+
+```ruby
+    elements :some_list_elements, '#some_list_of_elements'
+```
+
+Define a widget object (complex element/component containing other elements):
+```ruby
+      widget :sign_in_form, SignInForm, '#sign_in_form'
+```
+The additional second parameter (`SignInForm`) should be specified in order to tell the class where the widget is defined.
+
+Define a collection of widgets:
+```ruby
+    widgets :articles, Article, '[id^="article"]' 
+```
+
+Define a widget that should be opened automatically if it's not visible:
+```ruby
+    widget :side_panel, SidePanel, '#side_panel', :open => lambda {   
+      open_side_panel.click                    
+    }
+```
+
+Use Aliases if needed:
+```ruby
+    e :some_element, '#some_element_locator'           # i.e. element
+    ee :some_list_elements, '#some_list_of_elements'   # i.e. elements
+    ww :articles, Article, '[id^="article"]'           # i.e. widgets
+    e :open_side_panel, '#open_side_panel'
+    w :side_panel, SidePanel, '#side_panel', :open => lambda {  i.e. widget
+      open_side_panel.click                    
+    }
+```
+
+Use factories to create and use page objects:
+```ruby
 visit_page MainPage do |main|
   main.side_panel.sign_in_form.do_signin :mail => 'mail@example.com', :password => 'supersecret'
 end
