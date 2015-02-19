@@ -24,11 +24,15 @@ $(document).ready(function(){
         setTimeout(fn, 500)
     }
 
+    var itemsCounter = 0;
+    var $templateItem = $('#template_item');
+    var $templateOptionsFilter = $('#template_options_filter');
+
     $('.hidden_by_default').hide()
 
     $('#add_item').click(function(){
-        var newItemNumber = $('[id^="item"]').size() + 1;
-        var $newItem = $('#template_item').clone()
+        var newItemNumber = itemsCounter + 1;
+        var $newItem = $templateItem.clone()
             .attr('id','item_' + newItemNumber);
 
         $newItem.find('#show_advanced_options').click(function(){
@@ -49,7 +53,7 @@ $(document).ready(function(){
         $newItem.find('#add_options_filter').click(function(){
             var $newFilterNumber =
                 $advancedOptionsSelector.find('[id^="options_filter"]').size() + 1;
-            var $newOptionsFilter = $('#template_options_filter').clone()
+            var $newOptionsFilter = $templateOptionsFilter.clone()
                 .attr('id', 'options_filter_' + newItemNumber + '_' + $newFilterNumber);
 
             $newOptionsFilter.find('#options_scope_type').change(function(){
