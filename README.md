@@ -148,7 +148,7 @@ Use Aliases if needed:
     ee :some_list_elements, '#some_list_of_elements'   # i.e. elements
     ww :articles, Article, '[id^="article"]'           # i.e. widgets
     e :open_side_panel, '#open_side_panel'
-    w :side_panel, SidePanel, '#side_panel', :open => lambda {  i.e. widget
+    w :side_panel, SidePanel, '#side_panel', :open => lambda { #i.e. widget
       open_side_panel.click                    
     }
 ```
