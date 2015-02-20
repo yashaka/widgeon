@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Widgeon::VERSION
   spec.authors       = ["Iakiv Kramarenko"]
   spec.email         = ["yashaka@gmail.com"]
-  spec.summary       = %q{Yet another page objects for Capybara of 2.0.3 version and ruby 1.8.7}
-  spec.description   = %q{Yet another page objects for Capybara of 2.0.3 version, i.e. compatible with ruby 1.8.7}
+  spec.summary       = %q{Yet another page objects for Capybara with the ability to create widgets opened automatically (implementation of LoadableComponent selenium pattern)}
+  spec.description   = %q{Yet another page objects for Capybara of 2.0.3 version, i.e. compatible with ruby 1.8.7. Will switch to support latest versions of ruby soon}
   spec.homepage      = "https://github.com/yashaka/widgeon"
   spec.license       = "Apache License, Version 2.0"
 
@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'capybara', '= 2.0.3'
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 end
